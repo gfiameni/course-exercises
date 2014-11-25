@@ -10,7 +10,7 @@
  o) Examples
    -> MrJob
       $ source /root/mrjob0.4.2/bin/activate (mrjob0.4.3-dev also available)
-      $ cd /mapreduce-exercises/mrjob
+      $ cd /course-exercises/mrjob
       $ python word_count.py ../data/2261.txt.utf-8
       $ python word_count.py ../data/2261.txt.utf-8 -r hadoop
 
