@@ -26,4 +26,16 @@
 
    -> Spark
       $ spark-submit max_temp.py ../data/spark/1902
+
+   -> Hadoop 2.5.2
+      $ cd hadoop
+
+      $ yarn jar $YARN_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.2.jar pi 16 100000
+      
+      --------------
+      $ hdfs dfs -mkdir /data
+      $ hdfs dfs -put ../data/txt/2261.txt.utf-8 /data/
+      $ yarn jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.2.jar wordcount /data wordcount-output
+      --------------
+
 ###################################################
