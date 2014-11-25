@@ -7,11 +7,11 @@ from pyspark import SparkContext
 #based on position and filter out the invalid records
 def extractData(line):
     val = line.strip()
-        (year, temp, q) = (val[15:19], val[87:92], val[92:93])
-            if (temp != "+9999" and re.match("[01459]", q)):
-                            return [(year, temp)]
-                                else:
-                                            return []
+    (year, temp, q) = (val[15:19], val[87:92], val[92:93])
+    if (temp != "+9999" and re.match("[01459]", q)):
+        return [(year, temp)]
+    else:
+        return []
 
 #Create Spark Context with the master details and the application name
 

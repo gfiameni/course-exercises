@@ -25,12 +25,18 @@
       $ hadoop jar $HADOOP_PREFIX/hadoop-examples-1.2.1.jar pi 3 10
 
    -> Spark
-      $ spark-submit max_temp.py ../data/spark/1902
+      $ cd spark
+      
+      --------------
+      $ hadoop fs -put ../data/spark/1902 /spark/1902
+      $ spark-submit max_temp.py /spark/1902
+      $ hadoop fs -get /user/root/output/part-00000
+      --------------
 
    -> Hadoop 2.5.2
       $ cd hadoop
 
-      $ yarn jar $YARN_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.2.jar pi 16 100000
+      $ yarn jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.2.jar pi 16 10
       
       --------------
       $ hdfs dfs -mkdir /data
