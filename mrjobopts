@@ -1,0 +1,7 @@
+--cleanup='NONE'
+
+--output-dir
+
+--no-output
+
+sys.stderr.write("MAPPER INPUT: ({0},{1})\n".format(key,line))

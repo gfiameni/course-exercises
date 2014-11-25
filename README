@@ -1,0 +1,29 @@
+###################################################
+ Welcome to the Pseudo Hadoop environment (v1.2.1)
+ 
+ o) Packages
+   - Hadoop 1.2.1
+   - Python 2.7
+   - MrJob 0.4.3-dev 
+
+ 
+ o) Examples
+   -> MrJob
+      $ source /root/mrjob0.4.2/bin/activate (mrjob0.4.3-dev also available)
+      $ cd /mapreduce-exercises/mrjob
+      $ python word_count.py ../data/2261.txt.utf-8
+      $ python word_count.py ../data/2261.txt.utf-8 -r hadoop
+
+
+      $ python matmat.py (-r hadoop) ../data/mat/matmat_3x2_A ../data/mat/matmat_2x2_B
+      $ python sparse_matmat.py (-r hadoop) ../data/mat/smat_100x10_A ../data/mat/smat_10x200_B
+
+      $ python smatvec.py ../data/smat_10_5_A.txt ../data/vec_5.txt
+      $ python matmat.py ../data/smat_10_5_A.txt ../data/smat_5_5.txt
+
+   -> Hadoop
+      $ hadoop jar $HADOOP_PREFIX/hadoop-examples-1.2.1.jar pi 3 10
+
+   -> Spark
+      $ spark-submit max_temp.py ../data/spark/1902
+###################################################
