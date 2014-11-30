@@ -11,8 +11,8 @@
    -> MrJob
       $ source /root/mrjob0.4.2/bin/activate (mrjob0.4.3-dev also available)
       $ cd /course-exercises/mrjob
-      $ python word_count.py ../data/2261.txt.utf-8
-      $ python word_count.py ../data/2261.txt.utf-8 -r hadoop
+      $ python word_count.py ../data/txt/2261.txt.utf-8
+      $ python word_count.py ../data/txt/2261.txt.utf-8 -r hadoop
 
 
       $ python matmat.py (-r hadoop) ../data/mat/matmat_3x2_A ../data/mat/matmat_2x2_B
@@ -31,6 +31,20 @@
       $ hadoop fs -put ../data/spark/1902 /spark/1902
       $ spark-submit max_temp.py /spark/1902
       $ hadoop fs -get /user/root/output/part-00000
+      --------------
+
+   -> Spark Shell
+
+      --------------
+      $ hadoop fs -put ../data/txt/divine_comedy.txt /spark/divine_comedy.txt
+      $ spark-shell
+      $ scala> val textFile = sc.textFile("/spark/divine_comedy.txt")
+      $ scala> textFile.count() // Number of items in this RDD
+      $ scala> textFile.first() // First item in this RDD
+      $ scala> val linesWithCanto = textFile.filter(line => line.contains("Canto"))
+      $ scala> textFile.filter(line => line.contains("Canto")).count()
+      $ scala> linesWithSpark.cache()
+      $ scala> linesWithSpark.count()
       --------------
 
    -> Hadoop 2.5.2
