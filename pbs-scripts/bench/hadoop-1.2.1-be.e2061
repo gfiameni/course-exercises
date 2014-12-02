@@ -1,0 +1,288 @@
+14/11/16 21:58:05 INFO namenode.NameNode: STARTUP_MSG: 
+/************************************************************
+STARTUP_MSG: Starting NameNode
+STARTUP_MSG:   host = node002.pico.cineca.it/10.22.1.2
+STARTUP_MSG:   args = [-format, -nonInteractive, -force]
+STARTUP_MSG:   version = 1.2.1
+STARTUP_MSG:   build = https://svn.apache.org/repos/asf/hadoop/common/branches/branch-1.2 -r 1503152; compiled by 'mattf' on Mon Jul 22 15:23:09 PDT 2013
+STARTUP_MSG:   java = 1.7.0_67
+************************************************************/
+14/11/16 21:58:05 INFO util.GSet: Computing capacity for map BlocksMap
+14/11/16 21:58:05 INFO util.GSet: VM type       = 64-bit
+14/11/16 21:58:05 INFO util.GSet: 2.0% max memory = 1005060096
+14/11/16 21:58:05 INFO util.GSet: capacity      = 2^21 = 2097152 entries
+14/11/16 21:58:05 INFO util.GSet: recommended=2097152, actual=2097152
+14/11/16 21:58:05 INFO namenode.FSNamesystem: fsOwner=gfiameni
+14/11/16 21:58:05 INFO namenode.FSNamesystem: supergroup=supergroup
+14/11/16 21:58:05 INFO namenode.FSNamesystem: isPermissionEnabled=true
+14/11/16 21:58:05 INFO namenode.FSNamesystem: dfs.block.invalidate.limit=100
+14/11/16 21:58:05 INFO namenode.FSNamesystem: isAccessTokenEnabled=false accessKeyUpdateInterval=0 min(s), accessTokenLifetime=0 min(s)
+14/11/16 21:58:05 INFO namenode.FSEditLog: dfs.namenode.edits.toleration.length = 0
+14/11/16 21:58:05 INFO namenode.NameNode: Caching file names occuring more than 10 times 
+14/11/16 21:58:06 INFO common.Storage: Image file /scratch_local/hadoop-2061.node001/tmp/dfs/name/current/fsimage of size 114 bytes saved in 0 seconds.
+14/11/16 21:58:06 INFO namenode.FSEditLog: closing edit log: position=4, editlog=/scratch_local/hadoop-2061.node001/tmp/dfs/name/current/edits
+14/11/16 21:58:06 INFO namenode.FSEditLog: close success: truncate to 4, editlog=/scratch_local/hadoop-2061.node001/tmp/dfs/name/current/edits
+14/11/16 21:58:06 INFO common.Storage: Storage directory /scratch_local/hadoop-2061.node001/tmp/dfs/name has been successfully formatted.
+14/11/16 21:58:06 INFO namenode.NameNode: SHUTDOWN_MSG: 
+/************************************************************
+SHUTDOWN_MSG: Shutting down NameNode at node002.pico.cineca.it/10.22.1.2
+************************************************************/
+14/11/16 21:58:14 WARN hdfs.DFSClient: DataStreamer Exception: org.apache.hadoop.ipc.RemoteException: java.io.IOException: File /user/gfiameni/mapred.loadtest/genins/answer.key could only be replicated to 0 nodes, instead of 1
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.getAdditionalBlock(FSNamesystem.java:1920)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.addBlock(NameNode.java:783)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:587)
+	at org.apache.hadoop.ipc.Server$Handler$1.run(Server.java:1432)
+	at org.apache.hadoop.ipc.Server$Handler$1.run(Server.java:1428)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1190)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:1426)
+
+	at org.apache.hadoop.ipc.Client.call(Client.java:1113)
+	at org.apache.hadoop.ipc.RPC$Invoker.invoke(RPC.java:229)
+	at com.sun.proxy.$Proxy1.addBlock(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.io.retry.RetryInvocationHandler.invokeMethod(RetryInvocationHandler.java:85)
+	at org.apache.hadoop.io.retry.RetryInvocationHandler.invoke(RetryInvocationHandler.java:62)
+	at com.sun.proxy.$Proxy1.addBlock(Unknown Source)
+	at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.locateFollowingBlock(DFSClient.java:3720)
+	at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.nextBlockOutputStream(DFSClient.java:3580)
+	at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.access$2600(DFSClient.java:2783)
+	at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream$DataStreamer.run(DFSClient.java:3023)
+
+14/11/16 21:58:14 WARN hdfs.DFSClient: Error Recovery for null bad datanode[0] nodes == null
+14/11/16 21:58:14 WARN hdfs.DFSClient: Could not get block locations. Source file "/user/gfiameni/mapred.loadtest/genins/answer.key" - Aborting...
+org.apache.hadoop.ipc.RemoteException: java.io.IOException: File /user/gfiameni/mapred.loadtest/genins/answer.key could only be replicated to 0 nodes, instead of 1
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.getAdditionalBlock(FSNamesystem.java:1920)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.addBlock(NameNode.java:783)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:587)
+	at org.apache.hadoop.ipc.Server$Handler$1.run(Server.java:1432)
+	at org.apache.hadoop.ipc.Server$Handler$1.run(Server.java:1428)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1190)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:1426)
+
+	at org.apache.hadoop.ipc.Client.call(Client.java:1113)
+	at org.apache.hadoop.ipc.RPC$Invoker.invoke(RPC.java:229)
+	at com.sun.proxy.$Proxy1.addBlock(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.io.retry.RetryInvocationHandler.invokeMethod(RetryInvocationHandler.java:85)
+	at org.apache.hadoop.io.retry.RetryInvocationHandler.invoke(RetryInvocationHandler.java:62)
+	at com.sun.proxy.$Proxy1.addBlock(Unknown Source)
+	at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.locateFollowingBlock(DFSClient.java:3720)
+	at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.nextBlockOutputStream(DFSClient.java:3580)
+	at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.access$2600(DFSClient.java:2783)
+	at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream$DataStreamer.run(DFSClient.java:3023)
+14/11/16 21:58:14 ERROR hdfs.DFSClient: Failed to close file /user/gfiameni/mapred.loadtest/genins/answer.key
+org.apache.hadoop.ipc.RemoteException: java.io.IOException: File /user/gfiameni/mapred.loadtest/genins/answer.key could only be replicated to 0 nodes, instead of 1
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.getAdditionalBlock(FSNamesystem.java:1920)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.addBlock(NameNode.java:783)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.ipc.RPC$Server.call(RPC.java:587)
+	at org.apache.hadoop.ipc.Server$Handler$1.run(Server.java:1432)
+	at org.apache.hadoop.ipc.Server$Handler$1.run(Server.java:1428)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1190)
+	at org.apache.hadoop.ipc.Server$Handler.run(Server.java:1426)
+
+	at org.apache.hadoop.ipc.Client.call(Client.java:1113)
+	at org.apache.hadoop.ipc.RPC$Invoker.invoke(RPC.java:229)
+	at com.sun.proxy.$Proxy1.addBlock(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.io.retry.RetryInvocationHandler.invokeMethod(RetryInvocationHandler.java:85)
+	at org.apache.hadoop.io.retry.RetryInvocationHandler.invoke(RetryInvocationHandler.java:62)
+	at com.sun.proxy.$Proxy1.addBlock(Unknown Source)
+	at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.locateFollowingBlock(DFSClient.java:3720)
+	at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.nextBlockOutputStream(DFSClient.java:3580)
+	at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.access$2600(DFSClient.java:2783)
+	at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream$DataStreamer.run(DFSClient.java:3023)
+14/11/16 21:58:18 INFO mapred.ReliabilityTest: Waiting for the job org.apache.hadoop.examples.SleepJob to start
+14/11/16 21:58:19 INFO mapred.ReliabilityTest: Waiting for the job org.apache.hadoop.examples.SleepJob to start
+14/11/16 21:58:19 INFO mapred.JobClient: Running job: job_201411162158_0001
+14/11/16 21:58:20 INFO mapred.ReliabilityTest: JobID : job_201411162158_0001 not started RUNNING yet
+14/11/16 21:58:20 INFO mapred.JobClient:  map 0% reduce 0%
+14/11/16 21:58:21 INFO mapred.ReliabilityTest: JobID : job_201411162158_0001 not started RUNNING yet
+14/11/16 21:58:22 INFO mapred.ReliabilityTest: JobID : job_201411162158_0001 not started RUNNING yet
+14/11/16 21:58:23 INFO mapred.ReliabilityTest: Will kill tasks based on Maps' progress
+14/11/16 21:58:23 INFO mapred.ReliabilityTest: Initial progress threshold: 0.2. Threshold Multiplier: 2. Number of iterations: 2
+14/11/16 21:58:40 INFO mapred.JobClient:  map 1% reduce 0%
+14/11/16 21:58:50 INFO mapred.JobClient:  map 2% reduce 0%
+14/11/16 21:59:02 INFO mapred.JobClient:  map 3% reduce 0%
+14/11/16 21:59:15 INFO mapred.JobClient:  map 4% reduce 0%
+14/11/16 21:59:28 INFO mapred.JobClient:  map 5% reduce 0%
+14/11/16 21:59:39 INFO mapred.JobClient:  map 6% reduce 0%
+14/11/16 21:59:51 INFO mapred.JobClient:  map 7% reduce 0%
+14/11/16 22:00:03 INFO mapred.JobClient:  map 8% reduce 0%
+14/11/16 22:00:16 INFO mapred.JobClient:  map 9% reduce 0%
+14/11/16 22:00:28 INFO mapred.JobClient:  map 10% reduce 0%
+14/11/16 22:00:40 INFO mapred.JobClient:  map 11% reduce 0%
+14/11/16 22:00:52 INFO mapred.JobClient:  map 12% reduce 0%
+14/11/16 22:01:04 INFO mapred.JobClient:  map 13% reduce 0%
+14/11/16 22:01:16 INFO mapred.JobClient:  map 14% reduce 0%
+14/11/16 22:01:28 INFO mapred.JobClient:  map 15% reduce 0%
+14/11/16 22:01:40 INFO mapred.JobClient:  map 16% reduce 0%
+14/11/16 22:01:52 INFO mapred.JobClient:  map 17% reduce 0%
+14/11/16 22:02:04 INFO mapred.JobClient:  map 18% reduce 0%
+14/11/16 22:02:16 INFO mapred.JobClient:  map 19% reduce 0%
+14/11/16 22:02:28 INFO mapred.JobClient:  map 20% reduce 0%
+14/11/16 22:02:28 INFO mapred.ReliabilityTest: Sun Nov 16 22:02:28 CET 2014 Killing a few tasks
+14/11/16 22:02:29 INFO mapred.ReliabilityTest: Sun Nov 16 22:02:29 CET 2014 Killed task : attempt_201411162158_0001_m_000000_0
+14/11/16 22:02:29 INFO mapred.ReliabilityTest: Sun Nov 16 22:02:29 CET 2014 Killed task : attempt_201411162158_0001_m_000001_0
+14/11/16 22:02:29 INFO mapred.ReliabilityTest: Sun Nov 16 22:02:29 CET 2014 Killed task : attempt_201411162158_0001_m_000002_0
+14/11/16 22:02:29 INFO mapred.ReliabilityTest: Sun Nov 16 22:02:29 CET 2014 Killed task : attempt_201411162158_0001_m_000003_0
+14/11/16 22:02:31 INFO mapred.JobClient:  map 0% reduce 0%
+14/11/16 22:02:49 INFO mapred.JobClient:  map 1% reduce 0%
+14/11/16 22:02:59 INFO mapred.JobClient:  map 2% reduce 0%
+14/11/16 22:03:11 INFO mapred.JobClient:  map 3% reduce 0%
+14/11/16 22:03:24 INFO mapred.JobClient:  map 4% reduce 0%
+14/11/16 22:03:36 INFO mapred.JobClient:  map 5% reduce 0%
+14/11/16 22:03:48 INFO mapred.JobClient:  map 6% reduce 0%
+14/11/16 22:04:00 INFO mapred.JobClient:  map 7% reduce 0%
+14/11/16 22:04:12 INFO mapred.JobClient:  map 8% reduce 0%
+14/11/16 22:04:24 INFO mapred.JobClient:  map 9% reduce 0%
+14/11/16 22:04:36 INFO mapred.JobClient:  map 10% reduce 0%
+14/11/16 22:04:48 INFO mapred.JobClient:  map 11% reduce 0%
+14/11/16 22:05:01 INFO mapred.JobClient:  map 12% reduce 0%
+14/11/16 22:05:13 INFO mapred.JobClient:  map 13% reduce 0%
+14/11/16 22:05:25 INFO mapred.JobClient:  map 14% reduce 0%
+14/11/16 22:05:37 INFO mapred.JobClient:  map 15% reduce 0%
+14/11/16 22:05:50 INFO mapred.JobClient:  map 16% reduce 0%
+14/11/16 22:06:02 INFO mapred.JobClient:  map 17% reduce 0%
+14/11/16 22:06:13 INFO mapred.JobClient:  map 18% reduce 0%
+14/11/16 22:06:25 INFO mapred.JobClient:  map 19% reduce 0%
+14/11/16 22:06:37 INFO mapred.JobClient:  map 20% reduce 0%
+14/11/16 22:06:49 INFO mapred.JobClient:  map 21% reduce 0%
+14/11/16 22:07:02 INFO mapred.JobClient:  map 22% reduce 0%
+14/11/16 22:07:14 INFO mapred.JobClient:  map 23% reduce 0%
+14/11/16 22:07:24 INFO mapred.JobClient:  map 24% reduce 0%
+14/11/16 22:07:36 INFO mapred.JobClient:  map 25% reduce 0%
+14/11/16 22:07:48 INFO mapred.JobClient:  map 26% reduce 0%
+14/11/16 22:08:00 INFO mapred.JobClient:  map 27% reduce 0%
+14/11/16 22:08:12 INFO mapred.JobClient:  map 28% reduce 0%
+14/11/16 22:08:24 INFO mapred.JobClient:  map 29% reduce 0%
+14/11/16 22:08:36 INFO mapred.JobClient:  map 30% reduce 0%
+14/11/16 22:08:48 INFO mapred.JobClient:  map 31% reduce 0%
+14/11/16 22:09:00 INFO mapred.JobClient:  map 32% reduce 0%
+14/11/16 22:09:12 INFO mapred.JobClient:  map 33% reduce 0%
+14/11/16 22:09:25 INFO mapred.JobClient:  map 34% reduce 0%
+14/11/16 22:09:37 INFO mapred.JobClient:  map 35% reduce 0%
+14/11/16 22:09:48 INFO mapred.JobClient:  map 36% reduce 0%
+14/11/16 22:10:01 INFO mapred.JobClient:  map 37% reduce 0%
+14/11/16 22:10:13 INFO mapred.JobClient:  map 38% reduce 0%
+14/11/16 22:10:25 INFO mapred.JobClient:  map 39% reduce 0%
+14/11/16 22:10:37 INFO mapred.JobClient:  map 40% reduce 0%
+14/11/16 22:10:39 INFO mapred.ReliabilityTest: Sun Nov 16 22:10:39 CET 2014 Killing a few tasks
+14/11/16 22:10:39 INFO mapred.ReliabilityTest: Sun Nov 16 22:10:39 CET 2014 Killed task : attempt_201411162158_0001_m_000000_1
+14/11/16 22:10:39 INFO mapred.ReliabilityTest: Sun Nov 16 22:10:39 CET 2014 Killed task : attempt_201411162158_0001_m_000001_1
+14/11/16 22:10:39 INFO mapred.ReliabilityTest: Sun Nov 16 22:10:39 CET 2014 Killed task : attempt_201411162158_0001_m_000002_1
+14/11/16 22:10:39 INFO mapred.ReliabilityTest: Sun Nov 16 22:10:39 CET 2014 Killed task : attempt_201411162158_0001_m_000003_1
+14/11/16 22:10:41 INFO mapred.JobClient:  map 0% reduce 0%
+14/11/16 22:10:41 INFO mapred.JobClient: Task Id : attempt_201411162158_0001_m_000000_1, Status : FAILED
+Request received to fail task 'attempt_201411162158_0001_m_000000_1' by user
+Task has been FAILED_UNCLEAN by the user
+14/11/16 22:10:42 INFO mapred.JobClient: Task Id : attempt_201411162158_0001_m_000001_1, Status : FAILED
+Request received to fail task 'attempt_201411162158_0001_m_000001_1' by user
+Task has been FAILED_UNCLEAN by the user
+14/11/16 22:10:43 INFO mapred.JobClient: Task Id : attempt_201411162158_0001_m_000002_1, Status : FAILED
+Request received to fail task 'attempt_201411162158_0001_m_000002_1' by user
+Task has been FAILED_UNCLEAN by the user
+14/11/16 22:10:43 INFO mapred.JobClient: Task Id : attempt_201411162158_0001_m_000003_1, Status : FAILED
+Request received to fail task 'attempt_201411162158_0001_m_000003_1' by user
+Task has been FAILED_UNCLEAN by the user
+14/11/16 22:10:44 INFO mapred.ReliabilityTest: Will kill tasks based on Reduces' progress
+14/11/16 22:10:44 INFO mapred.ReliabilityTest: Initial progress threshold: 0.2. Threshold Multiplier: 2. Number of iterations: 2
+14/11/16 22:11:00 INFO mapred.JobClient:  map 1% reduce 0%
+14/11/16 22:11:10 INFO mapred.JobClient:  map 2% reduce 0%
+14/11/16 22:11:22 INFO mapred.JobClient:  map 3% reduce 0%
+14/11/16 22:11:34 INFO mapred.JobClient:  map 4% reduce 0%
+14/11/16 22:11:46 INFO mapred.JobClient:  map 5% reduce 0%
+14/11/16 22:11:57 INFO mapred.JobClient:  map 6% reduce 0%
+14/11/16 22:12:10 INFO mapred.JobClient:  map 7% reduce 0%
+14/11/16 22:12:22 INFO mapred.JobClient:  map 8% reduce 0%
+14/11/16 22:12:34 INFO mapred.JobClient:  map 9% reduce 0%
+14/11/16 22:12:47 INFO mapred.JobClient:  map 10% reduce 0%
+14/11/16 22:12:59 INFO mapred.JobClient:  map 11% reduce 0%
+14/11/16 22:13:10 INFO mapred.JobClient:  map 12% reduce 0%
+14/11/16 22:13:23 INFO mapred.JobClient:  map 13% reduce 0%
+14/11/16 22:13:35 INFO mapred.JobClient:  map 14% reduce 0%
+14/11/16 22:13:47 INFO mapred.JobClient:  map 15% reduce 0%
+14/11/16 22:13:59 INFO mapred.JobClient:  map 16% reduce 0%
+14/11/16 22:14:11 INFO mapred.JobClient:  map 17% reduce 0%
+14/11/16 22:14:23 INFO mapred.JobClient:  map 18% reduce 0%
+14/11/16 22:14:35 INFO mapred.JobClient:  map 19% reduce 0%
+14/11/16 22:14:47 INFO mapred.JobClient:  map 20% reduce 0%
+14/11/16 22:14:59 INFO mapred.JobClient:  map 21% reduce 0%
+14/11/16 22:15:11 INFO mapred.JobClient:  map 22% reduce 0%
+14/11/16 22:15:24 INFO mapred.JobClient:  map 23% reduce 0%
+14/11/16 22:15:34 INFO mapred.JobClient:  map 24% reduce 0%
+14/11/16 22:15:46 INFO mapred.JobClient:  map 25% reduce 0%
+14/11/16 22:15:58 INFO mapred.JobClient:  map 26% reduce 0%
+14/11/16 22:16:10 INFO mapred.JobClient:  map 27% reduce 0%
+14/11/16 22:16:22 INFO mapred.JobClient:  map 28% reduce 0%
+14/11/16 22:16:34 INFO mapred.JobClient:  map 29% reduce 0%
+14/11/16 22:16:46 INFO mapred.JobClient:  map 30% reduce 0%
+14/11/16 22:16:58 INFO mapred.JobClient:  map 31% reduce 0%
+14/11/16 22:17:10 INFO mapred.JobClient:  map 32% reduce 0%
+14/11/16 22:17:22 INFO mapred.JobClient:  map 33% reduce 0%
+14/11/16 22:17:35 INFO mapred.JobClient:  map 34% reduce 0%
+14/11/16 22:17:47 INFO mapred.JobClient:  map 35% reduce 0%
+14/11/16 22:17:58 INFO mapred.JobClient:  map 36% reduce 0%
+14/11/16 22:18:11 INFO mapred.JobClient:  map 37% reduce 0%
+14/11/16 22:18:23 INFO mapred.JobClient:  map 38% reduce 0%
+14/11/16 22:18:35 INFO mapred.JobClient:  map 39% reduce 0%
+14/11/16 22:18:48 INFO mapred.JobClient:  map 40% reduce 0%
+14/11/16 22:19:00 INFO mapred.JobClient:  map 41% reduce 0%
+14/11/16 22:19:11 INFO mapred.JobClient:  map 42% reduce 0%
+14/11/16 22:19:23 INFO mapred.JobClient:  map 43% reduce 0%
+14/11/16 22:19:36 INFO mapred.JobClient:  map 44% reduce 0%
+14/11/16 22:19:48 INFO mapred.JobClient:  map 45% reduce 0%
+14/11/16 22:20:00 INFO mapred.JobClient:  map 46% reduce 0%
+14/11/16 22:20:12 INFO mapred.JobClient:  map 47% reduce 0%
+14/11/16 22:20:22 INFO mapred.JobClient:  map 48% reduce 0%
+14/11/16 22:20:34 INFO mapred.JobClient:  map 49% reduce 0%
+14/11/16 22:20:46 INFO mapred.JobClient:  map 50% reduce 0%
+14/11/16 22:20:53 INFO mapred.JobClient:  map 50% reduce 6%
+14/11/16 22:20:54 INFO mapred.JobClient:  map 50% reduce 8%
+14/11/16 22:21:02 INFO mapred.JobClient:  map 51% reduce 8%
+14/11/16 22:21:12 INFO mapred.JobClient:  map 52% reduce 8%
+14/11/16 22:21:24 INFO mapred.JobClient:  map 53% reduce 8%
+14/11/16 22:21:36 INFO mapred.JobClient:  map 54% reduce 8%
+14/11/16 22:21:48 INFO mapred.JobClient:  map 55% reduce 8%
+14/11/16 22:22:00 INFO mapred.JobClient:  map 56% reduce 8%
+14/11/16 22:22:12 INFO mapred.JobClient:  map 57% reduce 8%
+14/11/16 22:22:24 INFO mapred.JobClient:  map 58% reduce 8%
+14/11/16 22:22:37 INFO mapred.JobClient:  map 59% reduce 8%
+14/11/16 22:22:50 INFO mapred.JobClient:  map 60% reduce 8%
+14/11/16 22:23:02 INFO mapred.JobClient:  map 61% reduce 8%
+14/11/16 22:23:13 INFO mapred.JobClient:  map 62% reduce 8%
+14/11/16 22:23:26 INFO mapred.JobClient:  map 63% reduce 8%
+14/11/16 22:23:38 INFO mapred.JobClient:  map 64% reduce 8%
+14/11/16 22:23:50 INFO mapred.JobClient:  map 65% reduce 8%
+14/11/16 22:24:02 INFO mapred.JobClient:  map 66% reduce 8%
+14/11/16 22:24:14 INFO mapred.JobClient:  map 67% reduce 8%
+14/11/16 22:24:26 INFO mapred.JobClient:  map 68% reduce 8%
+14/11/16 22:24:38 INFO mapred.JobClient:  map 69% reduce 8%
+14/11/16 22:24:50 INFO mapred.JobClient:  map 70% reduce 8%
+14/11/16 22:24:51 FATAL mapred.ReliabilityTest: JOB org.apache.hadoop.examples.SleepJob failed to run

@@ -1,0 +1,34 @@
+#!/bin/bash
+#PBS -A cin_staff
+#PBS -l walltime=01:00:00
+#PBS -l select=2:ncpus=20:mem=96GB
+#PBS -q parallel
+
+## Environment configuration
+module load profile/advanced hadoop/2.5.1
+# Configure a new HADOOP instance using PBS job information
+$MYHADOOP_HOME/bin/myhadoop-configure.sh
+# Start the Datanode, Namenode, and the Job Scheduler
+$HADOOP_HOME/sbin/start-dfs.sh
+$HADOOP_HOME/sbin/start-yarn.sh
+############################################
+
+# echo "Nodes list ###"
+$HADOOP_HOME/bin/yarn node -list -all
+
+# Copy a sample file set on hdfs
+$HADOOP_HOME/bin/hdfs dfs -ls /
+$HADOOP_HOME/bin/hdfs dfs -mkdir /data
+$HADOOP_HOME/bin/hdfs dfs -put ${HOME}/course-exercises/data/txt/divine_comedy.txt /data/
+$HADOOP_HOME/bin/hdfs dfs -ls /data
+
+# Run the wordcount on the data set
+$HADOOP_HOME/bin/yarn jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.1.jar wordcount /data wordcount-output-$PBS_JOBID
+
+# Get the result back on the scratch file system
+$HADOOP_HOME/bin/hdfs dfs -get wordcount-output-$PBS_JOBID ${CINECA_HOME}
+
+# $HADOOP_HOME/bin/yarn jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.1.jar pi 16 1000
+
+# Stop HADOOP services
+$MYHADOOP_HOME/bin/myhadoop-shutdown.sh

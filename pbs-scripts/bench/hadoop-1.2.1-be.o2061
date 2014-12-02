@@ -1,0 +1,27 @@
+myHadoop: Setting HADOOP_SCRATCH_DIR_GLOBAL=$CINECA_SCRATCH/hadoop-$PBS_JOBID from myhadoop.conf
+myHadoop: Setting HADOOP_SCRATCH_DIR_LOCAL=/scratch_local/hadoop-$PBS_JOBID from myhadoop.conf
+myHadoop: Setting DFS_DATA_DIR=/scratch_local/hadoop-$PBS_JOBID/datanode from myhadoop.conf
+myHadoop: Setting DFS_NAME_DIR=/scratch_local/hadoop-$PBS_JOBID/namenode from myhadoop.conf
+myHadoop: Setting DFS_REPLICA_FACTOR=1 from myhadoop.conf
+myHadoop: Setting MAPRED_TRACKER_GROUP=$PBS_JOBID from myhadoop.conf
+myHadoop: Setting MAPRED_LOCAL_DIR=/scratch_local/hadoop-$PBS_JOBID/mapred-local from myhadoop.conf
+myHadoop: Setting MAPRED_SYSTEM_DIR=/scratch_local/hadoop-$PBS_JOBID/mapred-system from myhadoop.conf
+myHadoop: Keeping HADOOP_HOME=/pico/hadoop/software/hadoop/hadoop-1.2.1 from user environment
+myHadoop: Keeping HADOOP_CONF_DIR=/pico/scratch/userinternal/gfiameni/hadoop-2061.node001/conf from user environment
+myHadoop: Setting HADOOP_CONF_DIR_DEFAULT=/pico/hadoop/service/my-hadoop/1.2.1/hadoop-conf from myhadoop.conf
+myHadoop: Using HADOOP_HOME=/pico/hadoop/software/hadoop/hadoop-1.2.1
+myHadoop: Using HADOOP_SCRATCH_DIR_GLOBAL=/pico/scratch/userinternal/gfiameni/hadoop-2061.node001
+myHadoop: Using JAVA_HOME=/pico/hadoop/tools/java/current
+myHadoop: Generating Hadoop configuration in directory in /pico/scratch/userinternal/gfiameni/hadoop-2061.node001/conf...
+myHadoop: Using directory /pico/scratch/userinternal/gfiameni/hadoop-2061.node001 for persisting HDFS state...
+myHadoop: Designating node002 as master node (namenode, secondary namenode, and jobtracker)
+myHadoop: The following nodes will be slaves (datanode, tasktracer):
+node002
+node003
+myHadoop: Formatting namenode
+starting namenode, logging to /pico/scratch/userinternal/gfiameni/hadoop-2061.node001/logs/hadoop-gfiameni-namenode-node002.out
+node002: starting datanode, logging to /pico/scratch/userinternal/gfiameni/hadoop-2061.node001/logs/hadoop-gfiameni-datanode-node002.out
+node003: starting datanode, logging to /pico/scratch/userinternal/gfiameni/hadoop-2061.node001/logs/hadoop-gfiameni-datanode-node003.out
+starting jobtracker, logging to /pico/scratch/userinternal/gfiameni/hadoop-2061.node001/logs/hadoop-gfiameni-jobtracker-node002.out
+node002: starting tasktracker, logging to /pico/scratch/userinternal/gfiameni/hadoop-2061.node001/logs/hadoop-gfiameni-tasktracker-node002.out
+node003: starting tasktracker, logging to /pico/scratch/userinternal/gfiameni/hadoop-2061.node001/logs/hadoop-gfiameni-tasktracker-node003.out

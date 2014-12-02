@@ -1,0 +1,31 @@
+#!/bin/bash
+#PBS -A cin_staff
+#PBS -l walltime=01:00:00
+#PBS -l select=2:ncpus=20:mem=96GB
+#PBS -q parallel
+#PBS -e $CINECA_SCRATCH/word-count-err
+#PBS -o $CINECA_SCRATCH/word-count-out
+
+module load profile/advanced
+module load autoload numpy
+module load python/2.7.8
+
+## Environment configuration
+module load hadoop/1.2.1
+# Configure a new HADOOP instance using PBS job information
+$MYHADOOP_HOME/bin/myhadoop-configure.sh -c $HADOOP_CONF_DIR
+# $HADOOP_HOME/bin/hadoop namenode -format -nonInteractive -force
+# Start the Datanode, Namenode, and the Job Scheduler
+$HADOOP_HOME/bin/start-all.sh
+###############################################################
+
+PYTHONPATH=$PYTHONPATH:~/pip
+
+echo "Matrix multiplication"
+python $HOME/course-exercises/mrjob/matmat.py -r hadoop $HOME/course-exercises/data/mat/matmat_3x2_A $HOME/course-exercises/data/mat/matmat_2x2_B
+
+echo "Sparse matrix multiplication"
+# python $HOME/course-exercises/mrjob/sparse_matmat.py -r hadoop $HOME/course-exercises/data/mat/smat_100x10_A $HOME/course-exercises/data/mat/smat_10x200_B
+
+# Stop HADOOP services
+$MYHADOOP_HOME/bin/myhadoop-shutdown.sh

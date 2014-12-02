@@ -1,0 +1,44 @@
+#!/bin/bash
+#PBS -A cin_staff
+#PBS -l walltime=01:00:00
+#PBS -l select=2:ncpus=10:mem=96GB
+#PBS -q parallel
+#PBS -V
+
+## Environment configuration
+export HADOOP_HOME=/pico/hadoop/software/hadoop/current
+export HADOOP_PREFIX=$HADOOP_HOME
+export MYHADOOP_HOME=/pico/hadoop/service/my-hadoop/current
+export JAVA_HOME=/pico/hadoop/tools/java/current
+export PATH=$HADOOP_HOME/bin:${JAVA_HOME}/bin:${PATH}
+export HADOOP_CONF_DIR=$CINECA_SCRATCH/hadoop-$PBS_JOBID/conf
+export HADOOP_HOME_WARN_SUPPRESS=1
+#####################################
+
+# Configure a new HADOOP instance using PBS job information
+# Format the HDFS volume for the user
+$MYHADOOP_HOME/bin/myhadoop-configure.sh
+
+
+# Start the Datanode, Namenode, and the Job Scheduler
+$HADOOP_HOME/sbin/start-dfs.sh > /dev/null 2>&1
+$HADOOP_HOME/sbin/start-yarn.sh > /dev/null 2>&1 
+
+# echo "Nodes list ###"
+$HADOOP_HOME/bin/yarn node -list -all
+
+# Run the wordcount on the data set
+$HADOOP_HOME/bin/yarn jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.5.1-tests.jar TestDFSIO -write -nrFiles 10 -fileSize 1000
+
+$HADOOP_HOME/bin/yarn jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.5.1-tests.jar TestDFSIO -read -nrFiles 10 -fileSize 1000
+
+$HADOOP_HOME/bin/yarn application -list
+
+# $HADOOP_HOME/bin/yarn jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.1.jar wordcount /data wordcount-output
+
+sleep 10
+# Stop HADOOP services
+$HADOOP_HOME/sbin/stop-yarn.sh
+$HADOOP_HOME/sbin/stop-dfs.sh
+
+killall -9 java > /dev/null 2>&1

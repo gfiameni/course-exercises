@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -A cin_staff
+#PBS -l walltime=01:00:00
+#PBS -l nodes=1:ncpus=20
+#PBS -q parallel
+
+module load profile/advanced
+module load python/2.7.8
+
+## Envirinment configuration
+module load hadoop/1.2.1
+# Configure a new HADOOP instance using PBS job information
+# Format the HDFS volume for the user
+$MYHADOOP_HOME/bin/myhadoop-configure.sh -c $HADOOP_CONF_DIR
+# Start the Datanode, Namenode, and the Job Scheduler
+$HADOOP_HOME/bin/start-all.sh
+#####################################
+
+PYTHONPATH=$PYTHONPATH:~/pip
+#  python $CINECA_SCRATCH/mrjob/word_count.py -o $CINECA_SCRATCH/mrjob/output -r hadoop $CINECA_SCRATCH/mrjob/39336-0.txt
+
+python $HOME/course-exercises/ngs/runner.py < $HOME/course-exercise/data/ngs/big.sam > output
+
+# Stop HADOOP services
+$MYHADOOP_HOME/bin/myhadoop-shutdown.sh

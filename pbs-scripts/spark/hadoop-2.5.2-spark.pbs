@@ -1,0 +1,38 @@
+#!/bin/bash
+#PBS -A cin_staff
+#PBS -l walltime=01:00:00
+#PBS -l select=1:ncpus=20
+#PBS -q parallel
+#PBS -V
+
+## Environment configuration
+module load profile/advanced hadoop/2.5.1
+# Configure a new HADOOP instance using PBS job information
+$MYHADOOP_HOME/bin/myhadoop-configure.sh
+# Start the Datanode, Namenode, and the Job Scheduler
+$HADOOP_HOME/sbin/start-dfs.sh
+$HADOOP_HOME/sbin/start-yarn.sh
+#####################################
+
+# echo "Nodes list ###"
+# $HADOOP_HOME/bin/yarn node -list -all
+
+# spark-submit --class org.apache.spark.examples.SparkPi --master yarn-cluster --num-executors 3 --driver-memory 4g --executor-memory 2g --executor-cores 1 $SPARK_HOME/lib/spark-examples-1.1.0-hadoop2.4.0.jar 10
+
+#################################################
+$HADOOP_HOME/bin/hdfs dfs -mkdir /spark
+$HADOOP_HOME/bin/hdfs dfs -put $HOME/course-exercises/data/spark/kmeans_data.txt /spark/kmeans_data.txt
+$HADOOP_HOME/bin/hdfs dfs -ls /spark
+spark-submit --master yarn-client $SPARK_HOME/examples/src/main/python/mllib/kmeans.py /spark/kmeans_data.txt 2
+$HADOOP_HOME/bin/hdfs dfs -cat /user/$USER/output/part-00000
+#################################################
+
+# $HADOOP_HOME/bin/hdfs dfs -mkdir /spark
+# $HADOOP_HOME/bin/hdfs dfs -put $HOME/course-exercises/data/spark/1902 /spark/1902
+# $HADOOP_HOME/bin/hdfs dfs -ls /spark
+# spark-submit --master yarn-cluster $HOME/course-exercises/spark/max_temp.py /spark/1902
+# spark-submit --master yarn-client $HOME/course-exercises/spark/max_temp.py /spark/1902
+# $HADOOP_HOME/bin/hdfs dfs -cat /user/$USER/output/part-00000
+
+# Stop HADOOP services
+$MYHADOOP_HOME/bin/myhadoop-shutdown.sh

@@ -1,11 +1,17 @@
-###################################################
- Welcome to the Pseudo Hadoop environment (v1.2.1)
+############################################################
+ Exercises for the coursei:
+   "Tools and techniques for massive data analysis"
+
+  > https://events.prace-ri.eu/conferenceDisplay.py?confId=314
+  > http://www.hpc.cineca.it
+
+############################################################
  
  o) Packages
-   - Hadoop 1.2.1
+   - Hadoop 1.2.1 (2.5.1/2.5.2)
    - Python 2.7
    - MrJob 0.4.3-dev 
-
+   - Apache Spark 1.1.0
  
  o) Examples
    -> MrJob
@@ -43,8 +49,8 @@
       $ scala> textFile.first() // First item in this RDD
       $ scala> val linesWithCanto = textFile.filter(line => line.contains("Canto"))
       $ scala> textFile.filter(line => line.contains("Canto")).count()
-      $ scala> linesWithSpark.cache()
-      $ scala> linesWithSpark.count()
+      $ scala> linesWithCanto.cache()
+      $ scala> linesWithCanto.count()
       --------------
 
    -> Hadoop 2.5.2
@@ -58,4 +64,4 @@
       $ yarn jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.2.jar wordcount /data wordcount-output
       --------------
 
-###################################################
+############################################################

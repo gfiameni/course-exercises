@@ -1,0 +1,51 @@
+#!/bin/bash
+#PBS -A cin_staff
+#PBS -l walltime=02:00:00
+#PBS -l select=2:ncpus=10:mem=96GB
+#PBS -q parallel
+
+## Environment configuration
+export HADOOP_HOME=/pico/hadoop/software/hadoop/hadoop-1.2.1
+export MYHADOOP_HOME=/pico/hadoop/service/my-hadoop/1.2.1
+export PATH=$HADOOP_HOME/bin:${PATH}
+export JAVA_HOME=/pico/hadoop/tools/java/current
+export HADOOP_CONF_DIR=$CINECA_SCRATCH/hadoop-$PBS_JOBID/conf
+export HADOOP_HOME_WARN_SUPPRESS=1
+#####################################
+
+# Configure a new HADOOP instance using PBS job information
+# Format the HDFS volume for the user
+$MYHADOOP_HOME/bin/myhadoop-configure.sh -c $HADOOP_CONF_DIR
+
+# Start the Datanode, Namenode, and the Job Scheduler
+$HADOOP_HOME/bin/start-all.sh
+
+# Benchmark MapReduce jobs
+$HADOOP_HOME/bin/hadoop jar $HADOOP_HOME/hadoop-test-1.2.1.jar mapredtest 5 1000
+
+# Test the reliability of the MapReduce distributed computing framework
+$HADOOP_HOME/bin/hadoop jar $HADOOP_HOME/hadoop-test-1.2.1.jar MRReliabilityTest -libjars $HADOOP_HOME/hadoop-examples-1.2.1.jar
+
+
+# Benchmark MapReduce to deal with a large number of small jobs
+$HADOOP_HOME/bin/hadoop jar $HADOOP_HOME/hadoop-test-1.2.1.jar mrbench -numRuns 20
+
+# Benchmark the MapReduce load generator
+$HADOOP_HOME/bin/hadoop jar $HADOOP_HOME/hadoop-test-1.2.1.jar loadgen -m 100 -r 10 -keepmap 50 -keepred 50 -indir input -outdir output
+
+# Do a stress test with the NameNode
+$HADOOP_HOME/bin/hadoop jar $HADOOP_HOME/hadoop-test-1.2.1.jar nnbench -create_write
+
+
+# Test the Hadoop performance with large non-splittable files
+$HADOOP_HOME/bin/hadoop jar $HADOOP_HOME/hadoop-test-1.2.1.jar testbigmapoutput -input input -output output -create 2048
+
+# Test thread map spills
+$HADOOP_HOME/bin/hadoop jar $HADOOP_HOME/hadoop-test-1.2.1.jar threadedmapbench
+
+# List any running job
+$HADOOP_HOME/bin/hadoop job -list
+
+# Stop HADOOP services
+$HADOOP_HOME/bin/stop-all.sh
+killall -9 java > /dev/null 2>&1

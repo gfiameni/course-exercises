@@ -1,0 +1,36 @@
+#!/bin/bash
+#PBS -A cin_staff
+#PBS -l walltime=01:00:00
+#PBS -l nodes=1:ncpus=20,mem=96G
+#PBS -q parallel
+
+## Environment configuration
+export HADOOP_HOME=/pico/hadoop/software/hadoop/hadoop-1.2.1
+export MYHADOOP_HOME=/pico/hadoop/service/my-hadoop/1.2.1
+export PATH=$HADOOP_HOME/bin:${PATH}
+export JAVA_HOME=/pico/hadoop/tools/java/current
+export HADOOP_CONF_DIR=$CINECA_SCRATCH/hadoop-$PBS_JOBID/conf
+export HADOOP_HOME_WARN_SUPPRESS=1
+export HADOOP_ROOT_LOGGER=DEBUG
+#####################################
+
+
+export USE_REAL_DATASET=TRUE
+export APP_JAR=${HADOOP_HOME}/hadoop-test-1.2.1.jar
+export EXAMPLE_JAR=${HADOOP_HOME}/hadoop-examples-1.2.1.jar
+export STREAMING_JAR=${HADOOP_HOME}/contrib/streaming/hadoop-streaming-1.2.1.jar
+
+# Configure a new HADOOP instance using PBS job information
+# Format the HDFS volume for the user
+$MYHADOOP_HOME/bin/myhadoop-configure.sh -c $HADOOP_CONF_DIR
+#$HADOOP_HOME/bin/hadoop namenode -format -nonInteractive -force
+
+# Start the Datanode, Namenode, and the Job Scheduler
+$HADOOP_HOME/bin/start-all.sh
+
+# $HADOOP_HOME/bin/hadoop mradmin -safemode get
+
+cd /pico/home/userinternal/gfiameni/hadoop-pbs-scripts/bench/gridmix2 && ./generateGridmix2data.sh
+
+# Stop HADOOP services
+$MYHADOOP_HOME/bin/myhadoop-shutdown.sh

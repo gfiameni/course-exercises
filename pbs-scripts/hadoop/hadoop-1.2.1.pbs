@@ -1,0 +1,30 @@
+#!/bin/bash
+#PBS -A cin_staff
+#PBS -l walltime=01:00:00
+#PBS -l select=1:ncpus=20:mem=96GB
+#PBS -q parallel
+
+## Environment configuration
+module load profile/advanced hadoop/1.2.1
+# Configure a new HADOOP instance using PBS job information
+$MYHADOOP_HOME/bin/myhadoop-configure.sh -c $HADOOP_CONF_DIR
+# Start the Datanode, Namenode, and the Job Scheduler
+$HADOOP_HOME/bin/start-all.sh
+#####################################
+
+
+# Copy a sample file set on hdfs
+$HADOOP_HOME/bin/hadoop fs -ls /
+$HADOOP_HOME/bin/hadoop fs -mkdir /data
+$HADOOP_HOME/bin/hadoop fs -put ${HOME}/course-exercises/data/txt/divine_comedy.txt /data/
+$HADOOP_HOME/bin/hadoop fs -ls /data
+
+# Run the wordcount on the data set
+$HADOOP_HOME/bin/hadoop jar $HADOOP_HOME/hadoop-examples-1.2.1.jar wordcount /data/divine_comedy.txt wordcount-output-$PBS_JOBID
+$HADOOP_HOME/bin/hadoop dfs -ls wordcount-output-$PBS_JOBID
+
+# Get the result back on the scratch file system
+$HADOOP_HOME/bin/hadoop dfs -get wordcount-output-$PBS_JOBID ${HOME}
+
+# Stop HADOOP services
+$MYHADOOP_HOME/bin/myhadoop-shutdown.sh
