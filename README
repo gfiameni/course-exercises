@@ -1,9 +1,10 @@
 ############################################################
- Exercises for the coursei:
+ Exercises for the course:
    "Tools and techniques for massive data analysis"
 
   > https://events.prace-ri.eu/conferenceDisplay.py?confId=314
   > http://www.hpc.cineca.it
+  > http://www.prace-ri.eu
 
 ############################################################
  
@@ -20,7 +21,6 @@
       $ python word_count.py ../data/txt/2261.txt.utf-8
       $ python word_count.py ../data/txt/2261.txt.utf-8 -r hadoop
 
-
       $ python matmat.py (-r hadoop) ../data/mat/matmat_3x2_A ../data/mat/matmat_2x2_B
       $ python sparse_matmat.py (-r hadoop) ../data/mat/smat_100x10_A ../data/mat/smat_10x200_B
 
@@ -32,7 +32,6 @@
 
    -> Spark
       $ cd spark
-      
       --------------
       $ hadoop fs -put ../data/spark/1902 /spark/1902
       $ spark-submit max_temp.py /spark/1902
@@ -40,7 +39,6 @@
       --------------
 
    -> Spark Shell
-
       --------------
       $ hadoop fs -put ../data/txt/divine_comedy.txt /spark/divine_comedy.txt
       $ spark-shell
@@ -55,9 +53,7 @@
 
    -> Hadoop 2.5.2
       $ cd hadoop
-
       $ yarn jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.2.jar pi 16 10
-      
       --------------
       $ hdfs dfs -mkdir /data
       $ hdfs dfs -put ../data/txt/2261.txt.utf-8 /data/
