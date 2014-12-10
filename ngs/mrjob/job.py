@@ -7,8 +7,14 @@ from mrjob.job import MRJob
 from mrjob.step import MRStep
 from mrjob.protocol import PickleProtocol
 
-data = {}
 SEP = ":"
+# Formats for quality reading: http://j.mp/1zo30bt
+# Illumina 1.8+ Phred+33,  raw reads typically (0, 41)
+PHRED_INIT = 33
+PHRED_MIN = 0
+PHRED_MAX = 41
+# What is the minimum quality?
+PHRED_THOLD = 20
 
 ###############################################
 class MRcoverage(MRJob):
@@ -27,7 +33,7 @@ class MRcoverage(MRJob):
             # Recover data
             pieces = line.split("\t")
             flag = int(pieces[1])
-            mychr = pieces[2]   #[3:]
+            mychr = pieces[2]
             mystart = int(pieces[3])
             myseq = pieces[9]
 
@@ -38,7 +44,7 @@ class MRcoverage(MRJob):
                 code = tmp.zfill(2)
             except ValueError:
                 code = ord(tmp).__str__()
-            #myqc = pieces[10]
+            myqc = pieces[10]
 
             # Handle STRAND:
             # Convert the flag to decimal, and check
@@ -53,20 +59,25 @@ class MRcoverage(MRJob):
             for i in xrange(mystart, mystop):
                 mypos = i - mystart
 
-#could be used to skip bad sequencing
-#could be used to skip bad sequencing
-                #current_qc = myqc[mypos]
-#could be used to skip bad sequencing
-#could be used to skip bad sequencing
+                #tmp = myqc[mypos]
+                #print "TEST ", tmp, ord(tmp), tmp.encode("ascii")
+                #time.sleep(2)
 
-                label = code + SEP + i.__str__() + SEP + mychr
-                current_letter = myseq[mypos]
+                # Compute quality value
+                # which should be in the range 0..40
+                current_qc = ord(myqc[mypos]) - PHRED_INIT
 
-                yield label, 1
-                yield label + SEP + current_letter, 1
+                # It will be used to skip bad sequencing
+                if current_qc < PHRED_MIN or current_qc > PHRED_MAX:
+                    raise Exception("Wrong encoding 'Sanger' Phred33+...!\n" + \
+                        "Found " +current_qc.__str__()+ " at " + \
+                        mychr + " Pos " + i.__str__())
+                if current_qc > PHRED_THOLD:
+                    label = code + SEP + i.__str__() + SEP + mychr
+                    current_letter = myseq[mypos]
 
-            # print mychr, mystart.__str__(), mystop.__str__(), \
-            #     len(myseq), (mystop - mystart).__str__()
+                    yield label, 1
+                    yield label + SEP + current_letter, 1
 
     def reducer(self, key, values):
         yield key, sum(values)
