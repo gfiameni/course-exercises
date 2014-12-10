@@ -1,31 +1,50 @@
+##############################################
+# CONF
+bin="$HADOOP_HOME/bin/hadoop"
+
 datadir="data"
 out="out$datadir"
-file="sam/a.sam"
-bin="$HADOOP_HOME/bin/hadoop"
+
+d="data/ngs"
+m="ngs/hs/hsmapper.py"
+r="ngs/hs/hsreducer.py"
+file="$d/test.sam"
+
 
 ##############################################
 # PYTHON TESTS
 
 # # Debug python code: only mapper
-# head -1000 $file | python hsmapper.py
+#head -1000 $file | python $m
 # # Debug python code: mapper & reducer
-# head -2000 $file | python hsmapper.py | sort | python hsreducer.py
+#head -2000 $file | python $m | sort | python $r
 # # Debug python code: write to output
-# cat $file | python hsmapper.py | sort | python hsreducer.py > test2.out
+#cat $file | python hsmapper.py | sort | python hsreducer.py > $d/test.out
 
 ##############################################
 # REAL HADOOP STREAMING
 
+# Suppress warnings
+export HADOOP_HOME_WARN_SUPPRESS="TRUE"
+
 # Clean previous output
-$bin fs -rmr $out
+tmp=`$bin fs -rmr $out 2>&1`
 
 # Create dir and copy file
-$bin fs -mkdir $datadir
-$bin fs -put $file $datadir/
+tmp=`$bin fs -mkdir $datadir 2>&1`
+tmp=`$bin fs -put $file $datadir/ 2>&1`
+
+echo "Data init completed"
 
 $bin jar $HADOOP_HOME/contrib/streaming/hadoop-streaming-1.2.1.jar \
     -input $datadir \
-    -output $out \
-    -mapper hsmapper.py \
-    -reducer /bin/wc \
-    -file hsmapper.py
+    -mapper $m \
+    -file $m \
+    -reducer $r \
+    -file $r \
+    -output $out
+
+$bin fs -ls $out
+
+echo "Done"
+exit

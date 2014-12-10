@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """ Streaming mapper """
 
 # Standard system input/output
