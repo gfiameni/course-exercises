@@ -1,1 +1,6 @@
 .DS*
+*.out
+*.log
+
+# Sam format uncompressed
+*.[b|s]am
