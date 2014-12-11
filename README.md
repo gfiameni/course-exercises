@@ -60,7 +60,8 @@ $ hadoop fs -get /user/root/output/part-00000
 $ bash ngs/hs/hstream.sh
 
 # Mr job
-$ python ngs/mrjob/runner.py < data/ngs/input.bz2 1> data/ngs/out.coverage 2> data/ngs/out.log
+$ source /root/mrjob0.4.2/bin/activate
+$ python ngs/mrjob/runner.py < data/ngs/input.sam 1> data/ngs/out.coverage 2> data/ngs/out.log
 
 ```
 ---

@@ -1,6 +1,12 @@
-.DS*
+# Output and logs
 *.out
 *.log
 
 # Sam format uncompressed
 *.[b|s]am
+
+# Python compiled objects
+*.pyc
+
+# Mac
+.DS*

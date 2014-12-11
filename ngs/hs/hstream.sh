@@ -11,21 +11,26 @@ m="ngs/hs/hsmapper.py"
 #m="ngs/hs/hsmapper_deco.py"
 r="ngs/hs/hsreducer.py"
 
-filebz="$d/input.bz2"
 file="$d/input.sam"
+file="$d/input.bz2"
 #file="$d/input.bam"
 
-# SAM 2 BAM:
+##############################################
+# COMPRESSION and DECOMPRESSION
+
+# # SAM 2 BAM:
 # $ samtools view -bS file.sam > file.bam
-# BAM 2 SAM:
+# # BAM 2 SAM:
 # $ samtools view -H file.bam > file.sam
 # $ samtools view file.bam >> file.sam
 
-if [ ! -f "$file" ]; then
-    echo "No text input found"
-    echo "Decompressing"
-    bunzip2 -dvc $filebz > $file
-fi
+# # Using text file!
+# filebz="$d/input.bz2"
+# if [ ! -f "$file" ]; then
+#     echo "No text input found"
+#     echo "Decompressing"
+#     bunzip2 -dvc $filebz > $file
+# fi
 
 ##############################################
 # NORMAL PYTHON DEBUGGING
@@ -39,6 +44,7 @@ fi
 # # Debug python code: write to output
 #cat $file | python $m | sort | python $r > $d/test.out
 
+# # If debugging, decomment exit below
 #exit
 
 ##############################################
@@ -56,12 +62,14 @@ tmp=`$bin fs -mkdir $datadir 2>&1`
 tmp=`$bin fs -put $file $datadir/ 2>&1`
 
 # Cleaning old logs
-rm -rf $userlogs/*
+tmp=`rm -rf $userlogs/* 2>&1`
 
 echo "Data init completed"
 
 ##############################################
-$bin jar $HADOOP_HOME/contrib/streaming/hadoop-streaming-1.2.1.jar \
+$bin \
+    jar $HADOOP_HOME/contrib/streaming/hadoop-streaming-1.2.1.jar \
+    -jobconf stream.recordreader.compression=bz2 \
     -input $datadir \
     -mapper $m \
     -file $m \
@@ -72,6 +80,9 @@ $bin jar $HADOOP_HOME/contrib/streaming/hadoop-streaming-1.2.1.jar \
 if [ $? == "0" ]; then
     echo "Output is:"
     $bin fs -ls $out
+
+    $bin fs -get $out/part-00000 $d/test.out
+    echo "Copied output to $d/test.out"
 else
     # Easier cli debug
     echo "Failed..."

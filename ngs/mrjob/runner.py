@@ -1,6 +1,6 @@
 
 # Load class for mapreduce
-from newjob import MRcoverage
+from job import MRcoverage
 #from job import MRcoverage
 from mrjob.util import log_to_stream
 
@@ -9,9 +9,11 @@ if __name__ == '__main__':
     # Create object
     mrjob = MRcoverage(args=[   \
         '-r', 'inline',
+        #'-r', 'local',
         # '-r', 'hadoop',
         # '--jobconf=mapreduce.job.maps=10',
         # '--jobconf=mapreduce.job.reduces=4'
+        #'--jobconf=stream.recordreader.compression=bz2'
         ])
 
     # Run and handle output

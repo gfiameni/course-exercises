@@ -7,13 +7,13 @@
   > http://www.prace-ri.eu
 
 ############################################################
- 
+
  o) Packages
    - Hadoop 1.2.1 (2.5.1/2.5.2)
    - Python 2.7
-   - MrJob 0.4.3-dev 
+   - MrJob 0.4.3-dev
    - Apache Spark 1.1.0
- 
+
  o) Examples
    -> MrJob
       $ source /root/mrjob0.4.2/bin/activate (mrjob0.4.3-dev also available)
@@ -26,6 +26,14 @@
 
       $ python smatvec.py ../data/smat_10_5_A.txt ../data/vec_5.txt
       $ python matmat.py ../data/smat_10_5_A.txt ../data/smat_5_5.txt
+
+   -> NGS
+      # Hadoop streaming: debug and hadoop run
+      $ bash ngs/hs/hstream.sh
+
+      # Mr job ngs
+      $ source /root/mrjob0.4.2/bin/activate
+      $ python ngs/mrjob/runner.py < data/ngs/input.sam 1> data/ngs/out.coverage 2> data/ngs/out.log
 
    -> Hadoop
       $ hadoop jar $HADOOP_PREFIX/hadoop-examples-1.2.1.jar pi 3 10
