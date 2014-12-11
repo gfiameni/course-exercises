@@ -38,7 +38,7 @@ class MatMult(MRJob):
 
     def emit_values(self, _, line):
 		
-		# sys.stderr.write("MAPPER INPUT: ({0})\n".format(line))
+        # sys.stderr.write("MAPPER INPUT: ({0})\n".format(line))
 
         mtype = self.parsemat() 
         a, b, v = line.split()

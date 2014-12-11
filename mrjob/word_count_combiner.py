@@ -8,8 +8,8 @@ class MRWordCount2(MRJob):
 			yield word.lower(),1
 	
 	# Combiner step
-	def combiner(self, word, occurrences):
-		yield word, sum(occurrences)
+    def combiner(self, word, occurrences):
+        yield word, sum(occurrences)
 
     def reducer(self, word, occurrences):
         yield word, sum(occurrences)
