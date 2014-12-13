@@ -1,4 +1,4 @@
-""" Matrix matrix multiplication 
+""" Matrix matrix product
 
 Input data should be in the form of 
 
@@ -7,8 +7,6 @@ i j+1   valuek+1
 i+1 j   valuek+2
 i+1 j+1 value k+3
 
-
---verbose
 """
 
 import sys
@@ -37,9 +35,6 @@ class MatMult(MRJob):
             return 2
 
     def emit_values(self, _, line):
-		
-        # sys.stderr.write("MAPPER INPUT: ({0})\n".format(line))
-
         mtype = self.parsemat() 
         a, b, v = line.split()
 
@@ -58,17 +53,16 @@ class MatMult(MRJob):
         values_from1 = []
         values_from2 = []
         
-        # sys.stderr.write("REDUCER INPUT: ({0},{1})\n".format(j, values))
-        
         for v in values:
             if v[0] == 0:
                 values_from1.append(v)
             elif v[0] == 1:
                 values_from2.append(v)
-   
-        for (m, i, v1) in values_from1:
-            for (m, k, v2) in values_from2:
-                yield (i, k), v1*v2
+
+    # Here goes you code ;)   
+
+    #######################
+
 
     def identity(self, k, v):
         yield k, v
