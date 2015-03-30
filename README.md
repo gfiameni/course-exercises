@@ -18,6 +18,29 @@ Here you can find all Exercises for the course.
 
 ### Examples
 
+```bash
+$ docker run -it -v ~/course-exercises:/course-exercises cineca/hadoop-mrjob:1.2.1 /etc/bootstrap.sh -bash
+root# source /root/mrjob0.4.2/bin/activate
+```
+
+```python
+from mrjob.job import MRJob
+from mrjob.step import MRStep
+
+class job(MRJob):
+    def mapper(self, _, line):
+        pass
+    def reducer(self, key, line):
+        pass
+    def steps(self):
+        return [
+            MRStep(mapper=self.mapper, reducer=self.reducer),
+        ]
+
+if __name__ == "__main__":
+    job.run()
+```
+
 ---
 ##### MrJob
 
