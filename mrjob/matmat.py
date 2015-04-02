@@ -59,9 +59,10 @@ class MatMult(MRJob):
             elif v[0] == 1:
                 values_from2.append(v)
 
-    # Here goes you code ;)   
 
-    #######################
+        for (m, i, v1) in values_from1:
+            for (m, k, v2) in values_from2:
+ 		        yield (i, k), v1*v2
 
 
     def identity(self, k, v):

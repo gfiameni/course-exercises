@@ -32,11 +32,8 @@ class SparseMatMult(MRJob):
             # rowvals are the entries in the row
             # we output the entire row for each column
             for val in rowvals:
-                # reorganize data by columns
-                sys.stdout.write("JOIN MAP MAT A: ({0}, {1}, {2})\n".format(val[0], row, val[1]))
                 yield (val[0], (row, val[1]))
         else:
-            sys.stdout.write("JOIN MAP MAT B: ({0}, {1})\n".format(row, rowvals))
             yield (row, (rowvals,))
             
     def joinred(self, key, vals):
@@ -56,7 +53,6 @@ class SparseMatMult(MRJob):
         
         for (bcol,bval) in brow:
             for (arow,aval) in acol:
-                # sys.stdout.write("JOIN RED MAT : ({0},{1},{2},{3})\n".format(arow,bcol,aval,bval))
                 yield ((arow,bcol), aval*bval)
     
     def sumred(self, key, vals):
