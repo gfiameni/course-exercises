@@ -3,17 +3,19 @@
 bin="$HADOOP_HOME/bin/hadoop"
 userlogs="/tmp/hadoop-root/mapred/local/userlogs"
 
-datadir="data"
-out="out$datadir"
+hbase="/user/root/data"
+datadir="$hbas/data"
+out="$datadir/out"
 
 d="data/ngs"
 m="ngs/hs/hsmapper.py"
 #m="ngs/hs/hsmapper_deco.py"
 r="ngs/hs/hsreducer.py"
 
-file="$d/input.sam"
-file="$d/input.bz2"
+file="$d/input"
+#file="$d/input.bz2"
 #file="$d/input.bam"
+fileout="$d/output"
 
 ##############################################
 # COMPRESSION and DECOMPRESSION
@@ -80,9 +82,12 @@ $bin \
 if [ $? == "0" ]; then
     echo "Output is:"
     $bin fs -ls $out
-
-    $bin fs -get $out/part-00000 $d/test.out
-    echo "Copied output to $d/test.out"
+    # Remove old local file if exists
+    rm -f $fileout
+    $bin fs -get $out/part-00000 $fileout
+    echo "$bin fs -get $out/part-00000 $fileout"
+    sleep 1
+    head $fileout
 else
     # Easier cli debug
     echo "Failed..."
