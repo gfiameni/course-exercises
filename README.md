@@ -1,4 +1,3 @@
-
 # WORKSHOP - "Tools and techniques for massive data analysis"
 
 > https://events.prace-ri.eu/conferenceDisplay.py?confId=314
@@ -66,6 +65,8 @@ $ hadoop jar $HADOOP_PREFIX/hadoop-examples-1.2.1.jar pi 3 10
 ---
 
 ##### Spark
+
+[Data for the Spark exercises](http://goo.gl/wEnUu8)
 
 ```bash
 $ cd spark
